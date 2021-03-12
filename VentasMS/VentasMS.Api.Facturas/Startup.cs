@@ -16,6 +16,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using VentasMS.Api.Facturas.Application;
 using VentasMS.Api.Facturas.Persistency;
+using VentasMS.Api.Facturas.RemoteInterfase;
+using VentasMS.Api.Facturas.RemoteService;
 
 namespace VentasMS.Api.Facturas
 {
@@ -51,6 +53,9 @@ namespace VentasMS.Api.Facturas
             services.AddHttpClient("Articulos", cfg => {
                 cfg.BaseAddress = new Uri(Configuration["Services:Articulos"]);
             });
+
+            //Esta es la inyeccion de dependencias de un servicio
+            services.AddScoped<IArticulosService, ArticulosService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
