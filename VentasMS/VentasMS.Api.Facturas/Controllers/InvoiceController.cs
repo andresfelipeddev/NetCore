@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VentasMS.Api.Facturas.Application;
+using VentasMS.Api.Facturas.Model;
 
 namespace VentasMS.Api.Facturas.Controllers
 {
@@ -24,6 +25,12 @@ namespace VentasMS.Api.Facturas.Controllers
         public async Task<ActionResult<(bool, int, int, string)>> Create(NewInvoice.Execute data)
         {
             return await _mediator.Send(data);
+        }
+
+        [HttpGet("{numberInvoice}")]
+        public async Task<ActionResult<InvoiceDto>> GetInvoice(int numberInvoice)
+        {
+            return await _mediator.Send(new ConsultaInvoice.Execute { NumberInvoice = numberInvoice });
         }
     }
 }
