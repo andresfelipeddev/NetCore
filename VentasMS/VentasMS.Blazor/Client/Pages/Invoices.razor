@@ -1,0 +1,97 @@
+﻿@page "/Invoices"
+
+
+<h3>Invoices</h3>
+
+<div>
+    Aqui va la info de la Factura
+    <br />
+    <br />
+    @if (Facturas == null)
+    {
+        <text>Es posible que el servicio no este funcionando...</text>
+    }
+    else if (Facturas.Count == 0)
+    {
+        <text>No hay resgistros para mostrar...</text>
+    }
+    else
+    {
+        @foreach (var invoice in Facturas)
+        {
+            <div class="row">
+                <div class="col-md-4">
+                    <p>Numero de Facturas : @invoice.NumberInvoice</p>
+                </div>
+                <div class="col-md-4">
+                    <p>Fecha de Facturas : @invoice.DateInvoice.ToString("yyyy-MM-dd")</p>
+                </div>
+                <div class="col-md-4">
+                    <p>Descripcion : @invoice.Description</p>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <h5>Detalle Factura</h5>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Codigo</div>
+                <div class="col-md-2">Producto</div>
+                <div class="col-md-2">Unidad</div>
+                <div class="col-md-2">Marca</div>
+                <div class="col-md-2">Cant</div>
+                <div class="col-md-2">Precio</div>
+            </div>
+            @foreach (var item in invoice.Details)
+            {
+                <div class="row">
+                <div class="col-md-2">@item.ArticuloGuid</div>
+                <div class="col-md-2">@item.NombreArticulo</div>
+                <div class="col-md-2">@item.Unidad</div>
+                <div class="col-md-2">@item.Marca</div>
+                <div class="col-md-2">@item.Quantity</div>
+                <div class="col-md-2">@item.Price</div>
+            </div>
+
+            }
+            
+            <hr />
+        }
+    }
+</div>
+
+
+            @code {
+
+    public List<InvoiceRemote> Facturas { get; set; } = new List<InvoiceRemote>();
+
+        protected override Task OnInitializedAsync()
+        {
+            Facturas = GetInvoices();
+            return base.OnInitializedAsync();
+        }
+
+        private List<InvoiceRemote> GetInvoices()
+        {
+            return new List<InvoiceRemote>
+{
+            new InvoiceRemote() { NumberInvoice= 2021001, DateInvoice = new DateTime(2021 , 03, 01),
+                                    Description = "Factura Prueba 001" ,
+                                Details = new List<InvoiceDetailRemote>{
+                                    new InvoiceDetailRemote {ArticuloGuid = "Articulo000001", Marca="Fino",
+                                        NombreArticulo="Producto Blazor", Unidad="UND", Price=12000, Quantity=20}
+                                }
+                            },
+               new InvoiceRemote() { NumberInvoice= 2021001, DateInvoice = new DateTime(2021 , 03, 01),
+                                    Description = "Factura Prueba 020" ,
+                                Details = new List<InvoiceDetailRemote>{
+                                    new InvoiceDetailRemote {ArticuloGuid = "sdfasdasdArticulo000001", Marca="La unica",
+                                        NombreArticulo="Azucar Morena", Unidad="Kilo", Price=15500, Quantity=20}
+                                }
+                            },
+
+            };
+        }
+            }
+
+

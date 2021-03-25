@@ -1,0 +1,12 @@
+﻿@page "/Bienvenida"
+
+<h3>Bienvenida @mensaje</h3>
+<button @onclick="@(() => Console.WriteLine("Clic en el boton") )">
+    Haz Click Aqui
+</button>
+
+<p>La suma de 2 + 5 es igual a @(2+5)</p>
+
+@code {
+    string mensaje = "Al curso Re-Aprender Net Core 5";
+}
