@@ -1,5 +1,31 @@
-﻿<h3>Detail invoice</h3>
+﻿<h3>Detail Invoice</h3>
+<div class="row">
+    <h5>Detalle Factura</h5>
+</div>
+<div class="row">
+    <div class="col-sm-2">Codigo</div>
+    <div class="col-sm-2">Producto</div>
+    <div class="col-sm-2">Unid</div>
+    <div class="col-sm-2">Marca</div>
+    <div class="col-sm-2">Cant</div>
+    <div class="col-sm-2">Precio</div>
+</div>
+@foreach (var item in InvoiceDetails)
+{
+    <div class="row">
+        <div class="col-sm-2">@item.ArticuloGuid</div>
+        <div class="col-sm-2">@item.NombreArticulo</div>
+        <div class="col-sm-2">@item.Unidad</div>
+        <div class="col-sm-2">@item.Marca</div>
+        <div class="col-sm-2">@item.Quantity</div>
+        <div class="col-sm-2">@item.Price</div>
+    </div>
+
+}
+<hr />
 
 @code {
 
+    [Parameter]
+    public List<InvoiceDetailRemote> InvoiceDetails { get; set; }
 }

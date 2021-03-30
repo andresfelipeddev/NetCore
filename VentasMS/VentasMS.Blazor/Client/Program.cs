@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using VentasMS.Blazor.Client.Repository;
 
 namespace VentasMS.Blazor.Client
 {
@@ -17,9 +18,16 @@ namespace VentasMS.Blazor.Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
+            // builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(@"http://localhost:44371/") });
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            ConfigurationServices(builder.Services);
 
             await builder.Build().RunAsync();
+        }
+
+        private static void ConfigurationServices(IServiceCollection services)
+        {
+            services.AddTransient<IRepositorio, Repositorio>();
         }
     }
 }
